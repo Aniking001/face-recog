@@ -31,18 +31,18 @@ def get_face_encodings(image):
     return face_encodings
 
 # Load the FaceScrub training dataset
-train_folder_path = r"C:\machine learning\facescrub-dataset-master\train_small"  # Replace with your train dataset path
-validate_folder_path = r"C:\machine learning\facescrub-dataset-master\validate_small"  # Replace with your validation dataset path
+train_folder_path = r"C:\machine learning\facescrub-dataset-master\train_small" 
+validate_folder_path = r"C:\machine learning\facescrub-dataset-master\validate_small"  
 
 print("Loading training images...")
-train_images, train_labels = load_images_from_folder(train_folder_path, limit=1000)  # Limit to 1000 images for testing
+train_images, train_labels = load_images_from_folder(train_folder_path, limit=1000)  
 print(f"Loaded {len(train_images)} training images.")
 
 print("Loading validation images...")
-validate_images, validate_labels = load_images_from_folder(validate_folder_path, limit=100)  # Limit to 100 images for testing
+validate_images, validate_labels = load_images_from_folder(validate_folder_path, limit=100)  
 print(f"Loaded {len(validate_images)} validation images.")
 
-# Generate face encodings for training data
+
 print("Generating face encodings for training data...")
 train_encodings = []
 train_encoding_labels = []
@@ -53,7 +53,7 @@ for img, label in tqdm(zip(train_images, train_labels), total=len(train_images))
         train_encoding_labels.append(label)
 print(f"Generated {len(train_encodings)} face encodings for training data.")
 
-# Generate face encodings for validation data
+
 print("Generating face encodings for validation data...")
 validate_encodings = []
 validate_encoding_labels = []
@@ -64,11 +64,11 @@ for img, label in tqdm(zip(validate_images, validate_labels), total=len(validate
         validate_encoding_labels.append(label)
 print(f"Generated {len(validate_encodings)} face encodings for validation data.")
 
-# Train the model (using the training set)
+# Train the model
 def train_model(X_train, y_train):
     return X_train, y_train
 
-# Predict the labels (using the validation set)
+# Predict the labels
 def predict(model, X_test):
     X_train, y_train = model
     predictions = []
@@ -88,10 +88,10 @@ model = train_model(train_encodings, train_encoding_labels)
 print("Predicting validation labels...")
 y_pred = predict(model, validate_encodings)
 
-# Filter out None values from predictions and corresponding labels
+print("Prediction complete.")
 filtered_y_pred = [pred for pred in y_pred if pred is not None]
 filtered_validate_labels = [label for pred, label in zip(y_pred, validate_encoding_labels) if pred is not None]
 
-# Calculate the accuracy
+# accuracy
 accuracy = accuracy_score(filtered_validate_labels, filtered_y_pred)
 print(f"Accuracy: {accuracy * 100:.2f}%")
